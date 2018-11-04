@@ -1,0 +1,20 @@
+<div class="card card-product" data-count="8">
+  <div class="card-header card-header-image" data-header-animation="true">
+    <% if (avatar && avatar.url) { %>
+      <img class="img"src="<%= avatar.url %>" alt="Contact photo" />
+    <% } else { %>
+        <img class="img"src="http://placehold.it/250x250" alt="Contact photo" />
+    <% } %>
+  </div>
+  <div class="card-body">
+    <div class="card-actions text-center">
+      <button id="view" type="button" class="btn btn-default btn-link" rel="tooltip" data-placement="bottom" title=""
+        title="View">
+        <i class="material-icons">art_track</i>
+      </button>
+    </div>
+    <h4 class="card-title">
+      <%= name %>
+    </h4>
+  </div>
+</div>

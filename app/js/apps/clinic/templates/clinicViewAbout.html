@@ -1,0 +1,31 @@
+<div class="card-header card-header-icon card-header-rose">
+  <div class="card-icon">
+    <i class="material-icons">pets</i>
+  </div>
+  <h4 class="card-title"><%= name %></h4>
+</div>
+<div class="card-body">
+  <div class="table-responsive">
+    <table class="table" style="border:none">
+      <tbody>
+        <tr>
+          <th>Email</th>
+          <td><a href="mailto:<%= email %>"><%= email %></a></td>
+        </tr>
+        <tr>
+          <th>Telefone</th>
+          <td><%= phone %></td>
+        </tr>
+        <tr>
+          <th>Endereço</th>
+          <td><%= address1 %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card-footer">
+    <button id="back" class="btn btn-default">
+      <i class="material-icons">keyboard_backspace</i>
+    </button>
+  </div>
+</div>
