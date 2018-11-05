@@ -1,0 +1,17 @@
+version: '3'
+services:
+  clinic:
+    build:
+      dockerfile: ./clinic.dockerfile
+      context: .
+    image: leonardo/clinic
+    container_name: clinic
+    ports:
+      - "9000:9000"
+    networks: 
+      - production-network
+  
+  
+networks: 
+  production-network:
+    driver: bridge

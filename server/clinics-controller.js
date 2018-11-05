@@ -45,8 +45,7 @@ function removeAvatar(contact) {
 
 const clinics = [{
   id: makeId(),
-  name: 'teste',
-  // name: 'Pet Shop Pinheiro',
+  name: 'Pet Shop Pinheiro',
   phone: '(85) 98793-5741',
   email: 'pet@clinic.com',
   address1: 'Av. Dr. Mendel Steinbruch, 5310 - Pajuçara, Maracanaú - CE, 61934-040'
