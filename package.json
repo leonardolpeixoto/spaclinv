@@ -1,7 +1,7 @@
 {
-  "name": "mastering-backbone-10",
+  "name": "spaclinv",
   "version": "0.0.1",
-  "description": "Source code for chapter 04 of the book Mastering Backbone",
+  "description": "SPA para listar clínicas veterinárias",
   "main": "index.js",
   "scripts": {
     "bundle": "cd app/js && browserify main.js -d -t [ jstify --engine underscore ] -o ../../.tmp/js/app.js",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/abiee/mastering-backbone.git"
+    "url": "git+https://github.com/leonardolpeixoto/spaclinv.git"
   },
   "keywords": [
     "book",
@@ -21,9 +21,9 @@
   "author": "Abiee Alejandro",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/abiee/mastering-backbone/issues"
+    "url": "https://github.com/leonardolpeixoto/spaclinv/issues"
   },
-  "homepage": "https://github.com/abiee/mastering-backbone#readme",
+  "homepage": "https://github.com/leonardolpeixoto/spaclinv#readme",
   "dependencies": {
     "backbone": "^1.3.3",
     "backbone-validation": "^0.11.5",
