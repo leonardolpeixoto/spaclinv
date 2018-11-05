@@ -1,4 +1,4 @@
-# Clinici-SPA
+# Clinic-SPA
 Spa para listar as clínicas veter
 
 ### Prerequisites
