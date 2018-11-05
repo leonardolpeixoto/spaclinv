@@ -3,7 +3,7 @@ Spa para listar as clínicas veter
 
 ### Prerequisites
 Para o funcionamento da aplicação devemos [instalar](https://nodejs.org/en/download/) o node na versão 8.12, caso queira
-executa a aplicação em um container instale o docker e o docker-compose
+executar a aplicação em um container instale o docker e o docker-compose
 
 ### Getting Started
 Depois de clonarmos o projeto devemos instalar nossas dependências, você pode usar tanto o **npm**, quanto o **yarn**:
