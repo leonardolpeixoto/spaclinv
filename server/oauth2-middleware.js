@@ -3,7 +3,7 @@
 const _ = require('underscore');
 const crispy = require('crispy-string');
 
-const DEFAULT_EXPIRATION_TIME = 3600; // seconds (1 hour)
+const DEFAULT_EXPIRATION_TIME = 3600;
 const TOKEN_LENGTH = 20;
 
 let validTokens = {};

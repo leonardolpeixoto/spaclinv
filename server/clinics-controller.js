@@ -43,75 +43,33 @@ function removeAvatar(contact) {
   }
 }
 
-var clinics = [{
+const clinics = [{
   id: makeId(),
-  name: 'Pet Shop Pinheiro',
-  phones: [{
-    description: 'bus',
-    phone: '(85) 98793-5741'
-  }],
-  emails: [{
-    description: 'personal',
-    email: 'john.doe@example.com'
-  }, {
-    description: 'work',
-    email: 'john.doe@acme.com'
-  }],
-  address1: 'Av. Dr. Mendel Steinbruch, 5310 - Pajuçara, Maracanaú - CE, 61934-040',
-  facebook: 'https://www.facebook.com/John.Doe'
-}, {
+  name: 'teste',
+  // name: 'Pet Shop Pinheiro',
+  phone: '(85) 98793-5741',
+  email: 'pet@clinic.com',
+  address1: 'Av. Dr. Mendel Steinbruch, 5310 - Pajuçara, Maracanaú - CE, 61934-040'
+},{
   id: makeId(),
-  name: 'Jane Doe',
-  emails: [{
-    description: 'personal',
-    email: 'jane.doe@example.com'
-  }],
-  address1: 'Tortilla Street 364',
-  facebook: 'https://www.facebook.com/John.Doe',
-  twitter: 'https://twitter.com/thejanedoe'
-}, {
+  name: 'PClinica Veterinária e Pet Shop',
+  phone: '(85) 3382-2072',
+  email: 'pet@clinic.com',
+  address1: 'Av. VII, 417 - Jereissati I, Maracanaú - CE, 61936-460',
+  facebook: 'https://www.facebook.com/BixoLindo'
+},{
   id: makeId(),
-  name: 'Abiee Alejandro',
-  emails: [{
-    description: 'personal',
-    email: 'abiee@echamea.com'
-  }],
-  address1: 'Cuarzo 2369',
-  facebook: 'https://www.facebook.com/abiee.alejandro',
-  twitter: 'https://twitter.com/AbieeAlejandro',
-  github: 'https://github.com/abiee'
-}, {
-  id: makeId(),
-  name: 'Omare',
-  email: 'me@omar-e.com',
-  address1: 'Del Árbol street'
+  name: 'Clínica Veterinária Salão Dog',
+  phone: '(85) 3382-4430',
+  email: 'pet@clinic.com',
+  address1: 'Av. III, 536 - Jereissati I, Maracanaú - CE, 61900-360'
 }];
-
-// Extract and set default values of a contact from a standard
-// express request object
-function extractContactData(req) {
-  var result = {};
-  var data = req.body;
-
-  var fields = ['name', 'phones', 'emails', 'address1', 'address2',
-    'facebook', 'twitter', 'google', 'github'];
-
-  fields.forEach(field => {
-    if (data[field]) {
-      result[field] = data[field];
-    }
-  });
-
-  return result;
-}
 
 module.exports = {
   showClinics(req, res) {
     res.json(clinics);
   },
 
-  // Locates an item in the contacts array with the id attribute equals
-  // to the req.params.contactId value
   findClinicById(req, res, next) {
     const clinicId = req.params.clinicId;
     const clinic = _.find(clinics, 'id', clinicId);
@@ -124,64 +82,15 @@ module.exports = {
     res.json(clinic);
   },
 
-  uploadAvatar(req, res, next) {
-    var clinicId = req.params.clinicId;
-    var filename, fullpath;
+  findClinicByName(req, res, next) {
+    const name = req.params.name;
+    const clinic = _.find(clinics, 'name', name);
 
-    // Ensure that user has sent the file
-    if (!_.has(req, 'file')) {
-      return res.status(400).json({
-        error: 'Please upload a file in the avatar field'
-      });
-    }
-
-    // File should be in a valid format
-    var metadata = req.file;
-    if (!isValidImage(metadata.mimetype)) {
-      res.status(400).json({
-        error: 'Invalid format, please use jpg, png or gif files'
-      });
-      return next();
-    }
-
-    // Get target contact from database
-    const clinic = _.find(clinics, 'id', clinicId);
     if (!clinic) {
-      res.status(404).json({
-        error: 'clinic not found'
-      });
+      res.status(404);
       return next();
     }
 
-    // Ensure that avatar path exists
-    if (!fs.existsSync(AVATAR_PATH)) {
-      fs.mkdirSync(AVATAR_PATH);
-    }
-
-    // Ensure unique filename to prevent name colisions
-    const extension = getExtension(metadata.originalname);
-    do {
-      filename = generateFilename(25, extension);
-      fullpath = generateFullPath(filename);
-    } while(fs.existsSync(fullpath));
-
-    // Remove previous avatar if any
-    removeAvatar(clinic);
-
-    // Save the file in disk
-    var wstream = fs.createWriteStream(fullpath);
-    wstream.write(metadata.buffer);
-    wstream.end();
-
-    // Update contact by assingn the url of the uploaded file
-    clinic.avatar = {
-      file: filename,
-      url: generateURLForAvatar(filename)
-    };
-
-    res.json({
-      success: true,
-      avatar: clinic.avatar
-    });
+    res.json(clinic);
   }
 };

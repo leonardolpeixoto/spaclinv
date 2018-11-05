@@ -1,8 +1,8 @@
 'use strict';
 
-var Backbone = require('backbone');
-var Common = require('../../../common');
-var template = require('../templates/login.html');
+let Backbone = require('backbone');
+let Common = require('../../../common');
+let template = require('../templates/login.html');
 
 class LoginView extends Common.ModelView {
   constructor(options) {

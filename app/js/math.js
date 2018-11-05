@@ -1,4 +1,4 @@
-var math = {
+let math = {
   sum(a, b) {
     return a + b;
   },

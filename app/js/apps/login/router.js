@@ -1,7 +1,7 @@
 'use strict';
 
-var Backbone = require('backbone');
-var LoginView = require('./views/loginView');
+let Backbone = require('backbone');
+let LoginView = require('./views/loginView');
 
 class LoginRouter extends Backbone.Router {
   constructor(options) {
@@ -15,8 +15,8 @@ class LoginRouter extends Backbone.Router {
   }
 
   showLogin() {
-    var App = require('../../app');
-    var login = new LoginView();
+    let App = require('../../app');
+    let login = new LoginView();
 
     App.mainRegion.show(login);
   }

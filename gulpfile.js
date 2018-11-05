@@ -1,21 +1,21 @@
-var gulp = require('gulp');
-var $ = require('gulp-load-plugins')();
-var httpProxy = require('http-proxy');
-var browserify = require('browserify');
-var watchify = require('watchify');
-var jstify = require('jstify');
-var babelify = require('babelify');
-var source = require('vinyl-source-stream');
-var buffer = require('vinyl-buffer');
-var browserSync = require('browser-sync');
-var minifyCss = require('gulp-minify-css');
-var KarmaServer = require('karma').Server;
-var reload = browserSync.reload;
+let gulp = require('gulp');
+let $ = require('gulp-load-plugins')();
+let httpProxy = require('http-proxy');
+let browserify = require('browserify');
+let watchify = require('watchify');
+let jstify = require('jstify');
+let babelify = require('babelify');
+let source = require('vinyl-source-stream');
+let buffer = require('vinyl-buffer');
+let browserSync = require('browser-sync');
+let minifyCss = require('gulp-minify-css');
+let KarmaServer = require('karma').Server;
+let reload = browserSync.reload;
 
 // Bundle files with browserify
 gulp.task('browserify', () => {
   // set up the browserify instance on a task basis
-  var bundler = browserify({
+  let bundler = browserify({
     entries: 'app/js/main.js',
     debug: true,
     // defining transforms here will avoid crashing your stream
@@ -24,7 +24,7 @@ gulp.task('browserify', () => {
 
   bundler = watchify(bundler);
 
-  var rebundle = function() {
+  let rebundle = function() {
     return bundler.bundle()
       .on('error', $.util.log)
       .pipe(source('app.js'))
@@ -44,7 +44,7 @@ gulp.task('browserify', () => {
 // Bundle files with browserify for production
 gulp.task('browserify:dist', function () {
   // set up the browserify instance on a task basis
-  var bundler = browserify({
+  let bundler = browserify({
     entries: 'app/js/main.js',
     // defining transforms here will avoid crashing your stream
     transform: [babelify, jstify]
@@ -59,7 +59,7 @@ gulp.task('browserify:dist', function () {
 });
 
 gulp.task('html', function() {
-  var assets = $.useref.assets();
+  let assets = $.useref.assets();
 
   return gulp.src('app/*.html')
     .pipe(assets)
@@ -76,16 +76,6 @@ gulp.task('images', function() {
     .pipe(gulp.dest('dist/images'));
 });
 
-// Copy web fonts to dist
-gulp.task('fonts', function () {
-  return gulp.src([
-    'app/{,styles/}fonts/**/*',
-    'node_modules/bootstrap/dist/fonts/**/*'
-  ])
-    .pipe($.flatten())
-    .pipe(gulp.dest('dist/fonts'));
-});
-
 gulp.task('express', () => {
   $.nodemon({
     script: 'server/index.js',
@@ -94,7 +84,7 @@ gulp.task('express', () => {
 });
 
 gulp.task('test', callback => {
-  var karma = new KarmaServer({
+  let karma = new KarmaServer({
     configFile: __dirname + '/karma.conf.js'
   }, callback);
 
@@ -102,7 +92,7 @@ gulp.task('test', callback => {
 });
 
 gulp.task('serve', ['browserify', 'express'], () => {
-  var serverProxy = httpProxy.createProxyServer();
+  let serverProxy = httpProxy.createProxyServer();
 
   browserSync({
     port: 9000,
@@ -132,8 +122,8 @@ gulp.task('serve', ['browserify', 'express'], () => {
   ]).on('change', reload);
 });
 
-gulp.task('serve:dist', ['browserify:dist', 'images', 'fonts', 'express'], () => {
-  var serverProxy = httpProxy.createProxyServer();
+gulp.task('serve:dist', ['browserify:dist', 'images', 'express'], () => {
+  let serverProxy = httpProxy.createProxyServer();
 
   browserSync({
     port: 9000,

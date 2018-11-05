@@ -9,24 +9,29 @@ class ClinicRouter extends Backbone.Router {
     this.routes = {
       'clinics': 'showClinicList',
       'clinics/page/:page': 'showClinicList',
-      'clinic/view/:id': 'showClinic'
+      'clinic/view/:id': 'showClinic',
+      'clinic/name/:name': 'showClinicName'
     };
 
     this._bindRoutes();
   }
 
   showClinicList(page) {
-    // Page should be a postive number grater than 0
     page = page || 1;
     page = page > 0 ? page : 1;
 
-    var app = this.startApp();
+    let app = this.startApp();
     app.showClinicList(page);
   }
 
   showClinic(clinicId) {
     const app = this.startApp();
     app.showClinicById(clinicId);
+  }
+
+  showClinicName(name) {
+    const app = this.startApp();
+    app.showClinicByName(name);
   }
 
   startApp() {

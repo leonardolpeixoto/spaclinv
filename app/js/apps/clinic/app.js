@@ -1,6 +1,7 @@
 'use strict';
 
 const App = require('../../app');
+const swal = require('sweetalert');
 const ClinicList = require('./clinicList');
 const ClinicViewer = require('./clinicViewer');
 const Clinic = require('./models/clinic');
@@ -13,17 +14,14 @@ class ClinicApp {
 
   showClinicList() {
     App.trigger('loading:start');
-    App.trigger('app:clinic:started');
+    App.trigger('app:clinics:started');
 
     new ClinicCollection().fetch({
       success: (collection) => {
-        // Show the contact list subapplication if
-        // the list can be fetched
         this.showList(collection);
         App.trigger('loading:stop');
       },
       fail: (collection, response) => {
-        // Show error message if something goes wrong
         App.trigger('loading:stop');
         App.trigger('server:error', response);
       }
@@ -32,16 +30,38 @@ class ClinicApp {
 
   showClinicById(clinicId) {
     App.trigger('loading:start');
-    App.trigger('app:clinics:started');
+    App.trigger('app:clinic:started');
 
     new Clinic({id: clinicId}).fetch({
       success: (model) => {
         this.showViewer(model);
         App.trigger('loading:stop');
       },
-      fail: (collection, response) => {
+      fail: (model, response) => {
         App.trigger('loading:stop');
         App.trigger('server:error', response);
+      }
+    });
+  }
+
+  showClinicByName(name) {
+    App.trigger('loading:start');
+    App.trigger('app:clinic:started');
+
+    new Clinic().fetch({
+      url: Clinic.searchName(name),
+      success: (model) => {
+        this.showViewer(model);
+        App.trigger('loading:stop');
+      },
+      fail: (model, response) => {
+        App.trigger('loading:stop');
+        App.trigger('server:error', response);
+      },
+      statusCode: {
+        404: function() {
+          swal('Clínica não foi encontrada.', '', 'info');
+        }
       }
     });
   }
@@ -53,7 +73,7 @@ class ClinicApp {
 
 
   showViewer(clinic) {
-    var clinicViewer = this.startController(ClinicViewer);
+    let clinicViewer = this.startController(ClinicViewer);
     clinicViewer.showClinic(clinic);
   }
 

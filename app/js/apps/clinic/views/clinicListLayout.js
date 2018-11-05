@@ -7,13 +7,11 @@ class ClinicListLayout extends Layout {
   constructor(options) {
     super(options);
     this.template = template;
+
     this.regions = {
+      search: '.search',
       list: '.list-container'
     };
-  }
-
-  get className() {
-    return 'row page-container';
   }
 }
 
